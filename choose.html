@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกประเภท</title>
+    <link rel="stylesheet" href="choose.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">เลือกประเภท</div>
+
+        <div class="button-grid" id="typeButtons">
+            <button class="active" data-type="3 ตัวเต็ง">3 ตัวเต็ง</button>
+            <button data-type="3 ตัวโต๊ด">3 ตัวโต๊ด</button>
+            <button data-type="วิ่งบน">วิ่งบน</button>
+            <button data-type="2 ตัวบน">2 ตัวบน</button>
+            <button data-type="2 ตัวล่าง">2 ตัวล่าง</button>
+            <button data-type="วิ่งล่าง">วิ่งล่าง</button>
+        </div>
+
+        <div class="number-display" id="numberDisplay">---</div>
+
+        <div class="number-grid" id="numberButtons">
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="icon-button">
+                <span class="material-icons" id="deleteIcon">delete</span>
+            </button>
+            <button>0</button>
+            <button class="icon-button" id="submitCheck">
+                <span class="material-icons">check</span>
+            </button>
+        </div>
+
+        <div class="selected-list" id="selectedList">
+            <!-- รายการที่เลือกจะถูกแสดงที่นี่ -->
+        </div>
+
+        <div class="footer">
+            <button id="insertPrice">ใส่ราคา</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedType = "3 ตัวเต็ง"; // ประเภทที่ถูกเลือกเริ่มต้น
+        let numberInput = ""; // ตัวแปรเก็บเลขที่ถูกกด
+        let selectedItems = []; // เก็บรายการที่เลือก
+
+        // เมื่อคลิกที่ปุ่มประเภท
+        function handleTypeButtonClick(e) {
+            if (e.target.tagName === 'BUTTON') {
+                selectedType = e.target.getAttribute('data-type');
+
+                // ลบคลาส active ออกจากปุ่มทั้งหมด
+                document.querySelectorAll('#typeButtons button').forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+
+                // เพิ่มคลาส active ให้กับปุ่มที่ถูกคลิก
+                e.target.classList.add('active');
+            }
+        }
+
+        // เมื่อคลิกที่ปุ่มตัวเลข
+        function handleNumberButtonClick(e) {
+            if (e.target.tagName === 'BUTTON' && !e.target.classList.contains('icon-button')) {
+                const number = e.target.textContent;
+
+                // เพิ่มเลขที่ถูกคลิกเข้าตัวแปร numberInput ถ้ายังไม่ครบ 3 ตัว
+                if (numberInput.length < 3) {
+                    numberInput += number;
+                    document.getElementById('numberDisplay').textContent = numberInput;
+                }
+            }
+        }
+
+        // ฟังก์ชันล้างค่าเมื่อคลิกที่ไอคอนถังขยะ
+        function handleDeleteIconClick() {
+            if (numberInput.length > 0) {
+                numberInput = numberInput.slice(0, -1); // ลบตัวเลขตัวสุดท้าย
+                document.getElementById('numberDisplay').textContent = numberInput || "---";
+            }
+        }
+
+        // เมื่อคลิกที่ไอคอนเครื่องหมายถูก (✔️)
+        function handleSubmitCheckClick() {
+            if (numberInput.length === 3 || selectedType.includes("วิ่ง")) {
+                // เพิ่มรายการที่เลือกเข้าใน selectedItems
+                selectedItems.push({ number: numberInput, type: selectedType });
+                
+                // แสดงรายการที่เลือกใน UI
+                updateSelectedList();
+
+                // ล้างค่า numberInput
+                numberInput = "";
+                document.getElementById('numberDisplay').textContent = "---";
+            }
+        }
+
+        // ฟังก์ชันอัปเดตรายการที่เลือกใน UI
+        function updateSelectedList() {
+            const listContainer = document.getElementById('selectedList');
+            listContainer.innerHTML = ''; // ล้างรายการเดิม
+            selectedItems.forEach((item, index) => {
+                const listItem = document.createElement('div');
+                listItem.classList.add('list-item');
+                listItem.innerHTML = `
+                    <div>${item.number}</div>
+                    <div>${item.type}</div>
+                    <div>
+                        <span class="material-icons delete-item" data-index="${index}">delete</span>
+                    </div>
+                `;
+                listContainer.appendChild(listItem);
+            });
+            addDeleteItemListeners();
+        }
+
+        // ฟังก์ชันลบรายการที่เลือก
+        function addDeleteItemListeners() {
+            document.querySelectorAll('.delete-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    selectedItems.splice(index, 1);
+                    updateSelectedList();
+                });
+            });
+        }
+
+        // เมื่อคลิกที่ปุ่ม "ใส่ราคา"
+        document.getElementById('insertPrice').addEventListener('click', function() {
+            if (selectedItems.length > 0) {
+                sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+                window.location.href = "price_input.html";
+            } else {
+                alert("กรุณาเลือกหมายเลขอย่างน้อยหนึ่งรายการก่อนใส่ราคา");
+            }
+        });
+
+        // เพิ่ม event listeners ตามประเภทอุปกรณ์
+        function isTouchDevice() {
+            return 'ontouchstart' in document.documentElement;
+        }
+
+        document.getElementById('typeButtons').addEventListener(isTouchDevice() ? 'touchstart' : 'click', handleTypeButtonClick);
+        document.getElementById('numberButtons').addEventListener(isTouchDevice() ? 'touchstart' : 'click', handleNumberButtonClick);
+        document.getElementById('deleteIcon').addEventListener(isTouchDevice() ? 'touchstart' : 'click', handleDeleteIconClick);
+        document.getElementById('submitCheck').addEventListener(isTouchDevice() ? 'touchstart' : 'click', handleSubmitCheckClick);
+    </script>
+
+</body>
+</html>

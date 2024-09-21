@@ -1,0 +1,208 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 300px;
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-top: -75px;
+}
+
+.header {
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+/* เพิ่ม touch-action เพื่อเพิ่มการตอบสนองที่ดีขึ้น */
+button, .icon-button {
+    touch-action: manipulation;
+}
+
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.button-grid button {
+    background-color: #fff;
+    color: #28a745;
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+}
+
+.button-grid button.active {
+    background-color: #28a745;
+    color: white;
+}
+
+.number-display {
+    font-size: 20px;
+    letter-spacing: 5px;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    text-align: center;
+    min-height: 40px;
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.number-grid button {
+    background-color: #fff;
+    color: #28a745;
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+}
+
+/* ขยายพื้นที่ที่สามารถกดได้ */
+.number-grid button, .icon-button {
+    padding: 15px; /* เพิ่ม padding เพื่อขยายพื้นที่ปุ่ม */
+    font-size: 24px; /* เพิ่มขนาดตัวอักษรเพื่อให้อ่านง่ายขึ้น */
+}
+
+/* เพิ่ม touch-action เพื่อให้การสัมผัสทำงานได้ดีขึ้น */
+button, .icon-button {
+    touch-action: manipulation;
+}
+
+.icon-button {
+    pointer-events: auto; /* ตรวจสอบให้แน่ใจว่าปุ่มนี้สามารถคลิกได้ */
+}
+
+.icon-button span {
+    display: flex; /* ทำให้ไอคอนเต็มพื้นที่ปุ่ม */
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+.number-grid button:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.number-grid button.active {
+    background-color: #28a745;
+    color: white;
+}
+
+.footer {
+    text-align: center;
+}
+
+.footer table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.footer table, .footer th, .footer td {
+    border: 1px solid #28a745;
+    text-align: center;
+    padding: 5px;
+}
+
+.footer th {
+    background-color: #28a745;
+    color: white;
+}
+
+.footer button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+}
+
+.footer button:hover {
+    background-color: #218838;
+}
+
+/* สไตล์สำหรับตารางรายการที่เลือก */
+.selected-list {
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.selected-list .header {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    font-weight: bold;
+}
+
+.selected-list .list-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 50px;
+    align-items: center;
+    padding: 8px 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.selected-list .list-item:nth-child(even) {
+    background-color: #e0f7e9;
+}
+
+.selected-list .list-item:nth-child(odd) {
+    background-color: #f4fbf7;
+}
+
+.selected-list .list-item div {
+    text-align: center;
+}
+
+.selected-list .list-item .material-icons {
+    color: white;
+    background-color: #28a745;
+    border-radius: 3px;
+    padding: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.selected-list .list-item:hover {
+    background-color: #d4f1d0;
+}

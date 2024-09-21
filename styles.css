@@ -1,0 +1,93 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.details {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1rem;
+}
+
+.details h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.lottery-rates {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.lottery-rates div {
+    text-align: left;
+}
+
+.lottery-rates p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.time-info {
+    margin-bottom: 15px;
+}
+
+.time-info p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.lottery-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Kanit', sans-serif;
+
+}
+
+.lottery-btn:hover {
+    background-color: #218838;
+}
+
+.hidden {
+    display: none;
+}
+
+.submenu,
+.details {
+    margin-top: 20px;
+}
